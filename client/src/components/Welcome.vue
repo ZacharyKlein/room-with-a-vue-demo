@@ -18,11 +18,7 @@
         serverInfo: null,
         showLinks: false,
         serverURL: process.env.SERVER_URL,
-        books: [
-          {id: 1, title: 'Book 1', pages: 100, author: 'Author 1'},
-          {id: 2, title: 'Book 2', pages: 300, author: 'Author 2'},
-          {id: 3, title: 'Book 3', pages: 200, author: 'Author 3'}
-        ]
+        books: []
       }
     },
     methods: {
@@ -31,8 +27,8 @@
       }
     },
     created: function () {
-      this.$http.get(`${this.$data.serverURL}/application`).then(response => {
-        this.$data.serverInfo = response.body
+      this.$http.get(`${this.$data.serverURL}/book`).then(response => {
+        this.$data.books = response.body
       })
     },
     components: {
