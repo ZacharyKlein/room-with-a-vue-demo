@@ -7,7 +7,7 @@
     <td></td>
     </thead>
     <tbody>
-    <book v-bind="{book, removeBook}"  :key="book.id" v-for="book in books"></book>
+    <book v-if="book" v-bind="{book, removeBook}"  :key="book.id" v-for="book in books"></book>
     </tbody>
   </table>
 </template>

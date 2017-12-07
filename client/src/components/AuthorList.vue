@@ -6,7 +6,7 @@
     <td></td>
     </thead>
     <tbody>
-    <author v-bind="{author, removeAuthor}" :key="author.id" v-for="author in authors"></author>
+    <author v-if="author" v-bind="{author, removeAuthor}" :key="author.id" v-for="author in authors"></author>
     </tbody>
   </table>
 </template>
