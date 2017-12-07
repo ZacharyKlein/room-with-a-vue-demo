@@ -4,7 +4,8 @@ model {
     Book book
 }
 json {
+    id book.id
     title book.title
     pages book.pages
-    author book.author.name
+    author book.author?.name
 }

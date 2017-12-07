@@ -5,6 +5,7 @@
       <td class="title">{{book.title}}</td>
       <td class="pages">{{book.pages}}</td>
       <td class="author">{{book.author}}</td>
+      <td><button @click="removeBook(book.id)">X</button></td>
     </tr>
 </template>
 
@@ -16,7 +17,7 @@
         hover: false
       }
     },
-    props: ['book']
+    props: ['book', 'removeBook']
   }
 </script>
 

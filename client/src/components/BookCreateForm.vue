@@ -1,13 +1,52 @@
 <template>
-    $END$
+  <div class="form">
+    <div class="title cell">
+      <label>Title</label>
+      <input v-model="book.title" type="text"/>
+    </div>
+    <div class="pages cell">
+      <label>Pages</label>
+      <input v-model="book.pages" type="text"/>
+    </div>
+    <div class="author cell">
+      <label>Author</label>
+
+      <select v-model="book.author">
+        <option disabled selected value="">Choose Author</option>
+        <option v-bind:value="{ id: author.id }" v-for="author in authors">{{author.name}}</option>
+      </select>
+    </div>
+    <div class="save cell">
+      <button @click="addBook(book)">Add Book</button>
+    </div>
+  </div>
 </template>
 
 <script>
   export default {
-    name: "book-create-form"
+    name: 'book-create-form',
+    props: ['addBook', 'authors'],
+    data () {
+      return {
+        book: {
+          title: '',
+          pages: null,
+          author: null
+        }
+      }
+    }
   }
 </script>
 
 <style scoped>
+
+  .cell {
+    width: 250px;
+    float: left
+  }
+
+  .save {
+
+  }
 
 </style>

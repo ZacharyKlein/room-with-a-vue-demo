@@ -2,13 +2,18 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <book-list :books="books"></book-list>
+    <book-create-form v-bind="{authors, addBook}"></book-create-form>
+    <br/>
+    <br/>
+    <hr/>
+    <book-list v-bind="{books, removeBook}"></book-list>
 
   </div>
 </template>
 
 <script>
   import BookList from './BookList.vue'
+  import BookCreateForm from './BookCreateForm'
 
   export default {
     name: 'Welcome',
@@ -18,21 +23,44 @@
         serverInfo: null,
         showLinks: false,
         serverURL: process.env.SERVER_URL,
-        books: []
+        books: [],
+        authors: []
       }
     },
     methods: {
-      toggleLinks: function () {
-        this.$data.showLinks = !this.$data.showLinks
+      addBook: function (book) { // TODO: Don't use arrow => functions here
+        this.$resource(`${this.serverURL}/book`)
+          .save(book)
+          .then(response => {
+            this.books.push(response.body)
+          })
+      },
+      removeBook: function (id) {
+        this.$resource(`${this.serverURL}/book/${id}`)
+          .delete()
+          .then(response => {
+            if (response.status === 204) {
+              this.books = this.books.filter(b => b.id !== id)
+            }
+          })
       }
     },
     created: function () {
-      this.$http.get(`${this.$data.serverURL}/book`).then(response => {
-        this.$data.books = response.body
-      })
+      this.$resource(`${this.serverURL}/book`)
+        .get()
+        .then(response => {
+          this.books = response.body
+        })
+
+      this.$resource(`${this.serverURL}/author`)
+        .get()
+        .then(response => {
+          this.authors = response.body
+        })
     },
     components: {
-      'book-list': BookList
+      'book-list': BookList,
+      'book-create-form': BookCreateForm
     }
   }
 </script>
