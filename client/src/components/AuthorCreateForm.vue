@@ -2,7 +2,7 @@
   <div class="form">
     <div class="title cell">
       <label>Name</label>
-      <input v-model="author.name" type="text"/>
+      <input ref="authorName" v-model="author.name" type="text"/>
     </div>
 
     <div class="save cell">
@@ -26,6 +26,7 @@
       submitNewAuthor: function () {
         this.addAuthor(this.author)
         this.author = {name: ''}
+        this.$refs.authorName.focus()
       }
     }
   }

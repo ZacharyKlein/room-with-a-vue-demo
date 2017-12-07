@@ -2,7 +2,7 @@
   <div class="form">
     <div class="title cell">
       <label>Title</label>
-      <input v-model="book.title" type="text"/>
+      <input ref="bookTitle" v-model="book.title" type="text"/>
     </div>
     <div class="pages cell">
       <label>Pages</label>
@@ -40,6 +40,7 @@
       submitNewBook: function () {
         this.addBook(this.book)
         this.book = {title: '', pages: null, author: {}}
+        this.$refs.bookTitle.focus()
       }
     }
   }
