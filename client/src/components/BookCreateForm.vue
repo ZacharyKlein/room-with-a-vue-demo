@@ -13,7 +13,8 @@
 
       <select v-model="book.author">
         <option disabled selected value="">Choose Author</option>
-        <option v-bind:value="{ id: author.id }" v-for="author in authors">{{author.name}}</option>
+        <option v-if="author !== null" v-bind:value="{ id: author.id }" v-for="author in authors">{{author.name}}</option>
+
       </select>
     </div>
     <div class="save cell">
@@ -31,7 +32,7 @@
         book: {
           title: '',
           pages: null,
-          author: null
+          author: {}
         }
       }
     }

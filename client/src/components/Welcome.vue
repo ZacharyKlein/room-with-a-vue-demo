@@ -70,6 +70,7 @@
           .then(response => {
             if (response.status === 204) {
               this.authors = this.authors.filter(b => b.id !== id)
+              this.books = this.books.filter(b => b.author.id !== id)
             }
           })
       }
@@ -78,6 +79,7 @@
       this.$resource(`${this.serverURL}/book`)
         .get()
         .then(response => {
+          console.log(response.body)
           this.books = response.body
         })
 
