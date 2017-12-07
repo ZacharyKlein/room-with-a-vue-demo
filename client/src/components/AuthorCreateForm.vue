@@ -14,7 +14,7 @@
 <script>
   export default {
     name: 'author-create-form',
-    props: ['addAuthor'],
+    props: ['saveAuthor'],
     data () {
       return {
         author: {
@@ -24,7 +24,7 @@
     },
     methods: {
       submitNewAuthor: function () {
-        this.addAuthor(this.author)
+        this.saveAuthor(this.author)
         this.author = {name: ''}
         this.$refs.authorName.focus()
       }

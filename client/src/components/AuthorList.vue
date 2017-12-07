@@ -6,7 +6,7 @@
     <td></td>
     </thead>
     <tbody>
-    <author v-if="author" v-bind="{author, removeAuthor}" :key="author.id" v-for="author in authors"></author>
+    <author v-if="author" v-bind="{author, deleteAuthor}" :key="author.id" v-for="author in authors"></author>
     </tbody>
   </table>
 </template>
@@ -15,7 +15,7 @@
 
   export default {
     name: 'author-list',
-    props: ['authors', 'removeAuthor'],
+    props: ['authors', 'deleteAuthor'],
     components: {Author}
   }
 </script>

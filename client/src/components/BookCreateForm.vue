@@ -38,7 +38,7 @@
     },
     methods: {
       submitNewBook: function () {
-        this.addBook(this.book)
+        this.saveBook(this.book)
         this.book = {title: '', pages: null, author: {}}
         this.$refs.bookTitle.focus()
       }
