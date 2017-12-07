@@ -8,12 +8,25 @@
     <hr/>
     <book-list v-bind="{books, removeBook}"></book-list>
 
+    <br/>
+    <hr/>
+
+    <author-create-form v-bind="{addAuthor}"></author-create-form>
+    <br/>
+    <br/>
+    <hr/>
+    <author-list v-bind="{authors, removeAuthor}"></author-list>
+
+    <br/>
+
   </div>
 </template>
 
 <script>
-  import BookList from './BookList.vue'
+  import BookList from './BookList'
+  import AuthorList from './AuthorList'
   import BookCreateForm from './BookCreateForm'
+  import AuthorCreateForm from './AuthorCreateForm'
 
   export default {
     name: 'Welcome',
@@ -35,12 +48,28 @@
             this.books.push(response.body)
           })
       },
+      addAuthor: function (author) { // TODO: Don't use arrow => functions here
+        this.$resource(`${this.serverURL}/author`)
+          .save(author)
+          .then(response => {
+            this.authors.push(response.body)
+          })
+      },
       removeBook: function (id) {
         this.$resource(`${this.serverURL}/book/${id}`)
           .delete()
           .then(response => {
             if (response.status === 204) {
               this.books = this.books.filter(b => b.id !== id)
+            }
+          })
+      },
+      removeAuthor: function (id) {
+        this.$resource(`${this.serverURL}/author/${id}`)
+          .delete()
+          .then(response => {
+            if (response.status === 204) {
+              this.authors = this.authors.filter(b => b.id !== id)
             }
           })
       }
@@ -59,8 +88,7 @@
         })
     },
     components: {
-      'book-list': BookList,
-      'book-create-form': BookCreateForm
+      BookList, BookCreateForm, AuthorList, AuthorCreateForm
     }
   }
 </script>

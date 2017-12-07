@@ -1,13 +1,13 @@
 <template>
   <table class="book-list">
     <thead>
-      <td>Title</td>
-      <td>Pages</td>
-      <td>Author</td>
-      <td></td>
+    <td>Title</td>
+    <td>Pages</td>
+    <td>Author</td>
+    <td></td>
     </thead>
     <tbody>
-      <book v-bind="{book, removeBook}" :key="book.id" v-for="book in books"></book>
+    <book v-bind="{book, removeBook}"  :key="book.id" v-for="book in books"></book>
     </tbody>
   </table>
 </template>
@@ -17,15 +17,13 @@
   export default {
     name: 'book-list',
     props: ['books', 'removeBook'],
-    components: {
-      book: Book
-    }
+    components: {Book}
   }
 </script>
 
 <style scoped>
   .book-list {
-    clear:both;
+    clear: both;
     min-width: 1000px
   }
 </style>
