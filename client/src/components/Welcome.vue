@@ -79,7 +79,6 @@
       this.$resource(`${this.serverURL}/book`)
         .get()
         .then(response => {
-          console.log(response.body)
           this.books = response.body
         })
 
@@ -104,6 +103,7 @@
 
   h1, h2 {
     font-weight: normal;
+    margin-bottom: 25px;
   }
 
   ul {

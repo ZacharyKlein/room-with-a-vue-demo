@@ -18,7 +18,7 @@
       </select>
     </div>
     <div class="save cell">
-      <button @click="addBook(book)">Add Book</button>
+      <button @click="submitNewBook()" >Add Book</button>
     </div>
   </div>
 </template>
@@ -34,6 +34,12 @@
           pages: null,
           author: {}
         }
+      }
+    },
+    methods: {
+      submitNewBook: function () {
+        this.addBook(this.book)
+        this.book = {title: '', pages: null, author: {}}
       }
     }
   }

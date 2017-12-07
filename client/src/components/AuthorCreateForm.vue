@@ -6,7 +6,7 @@
     </div>
 
     <div class="save cell">
-      <button @click="addAuthor(author)">Add Author</button>
+      <button @click="submitNewAuthor()">Add Author</button>
     </div>
   </div>
 </template>
@@ -20,6 +20,12 @@
         author: {
           name: ''
         }
+      }
+    },
+    methods: {
+      submitNewAuthor: function () {
+        this.addAuthor(this.author)
+        this.author = {name: ''}
       }
     }
   }
