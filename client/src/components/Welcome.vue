@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <book-create-form :authors="authors" v-bind="{saveBook}"></book-create-form>
+    <book-create-form></book-create-form>
     <br/>
     <br/>
     <hr/>
@@ -11,11 +11,11 @@
     <br/>
     <hr/>
 
-    <author-create-form v-bind="{saveAuthor}"></author-create-form>
+    <author-create-form></author-create-form>
     <br/>
     <br/>
     <hr/>
-    <author-list v-bind="{authors, deleteAuthor}"></author-list>
+    <author-list :authors="authors" v-bind="{deleteAuthor}"></author-list>-
 
     <br/>
 
@@ -27,7 +27,7 @@
   import AuthorList from './AuthorList'
   import BookCreateForm from './BookCreateForm'
   import AuthorCreateForm from './AuthorCreateForm'
-  import { mapMutations } from 'vuex'
+  import { mapActions, mapMutations } from 'vuex'
 
   export default {
     name: 'Welcome',
@@ -38,10 +38,6 @@
       }
     },
     computed: {
-      // ...mapState([
-      //   'books', 'authors'
-      // ])
-
       books: {
         get () { return this.$store.state.books },
         set (books) { this.$store.commit('setBooks', {books}) }
@@ -52,26 +48,15 @@
       }
     },
     methods: {
+      ...mapActions([
+        'loadAuthors',
+        'loadBooks'
+      ]),
       ...mapMutations([
-        'addBook',
         'addAuthor',
         'removeBook',
         'removeAuthor'
       ]),
-      saveBook: function (book) { // TODO: Don't use arrow => functions here
-        this.$resource(`${this.serverURL}/book`)
-          .save(book)
-          .then(response => {
-            this.addBook({book: response.body})
-          })
-      },
-      saveAuthor: function (author) { // TODO: Don't use arrow => functions here
-        this.$resource(`${this.serverURL}/author`)
-          .save(author)
-          .then(response => {
-            this.addAuthor({author: response.body})
-          })
-      },
       deleteBook: function (id) {
         this.$resource(`${this.serverURL}/book/${id}`)
           .delete()
@@ -93,17 +78,8 @@
       }
     },
     created: function () {
-      this.$resource(`${this.serverURL}/book`)
-        .get()
-        .then(response => {
-          this.books = response.body
-        })
-
-      this.$resource(`${this.serverURL}/author`)
-        .get()
-        .then(response => {
-          this.authors = response.body
-        })
+      this.loadAuthors()
+      this.loadBooks()
     },
     components: {
       BookList, BookCreateForm, AuthorList, AuthorCreateForm

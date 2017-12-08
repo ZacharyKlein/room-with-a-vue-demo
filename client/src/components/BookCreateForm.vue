@@ -24,9 +24,10 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'book-create-form',
-    props: ['addBook', 'authors'],
     data () {
       return {
         book: {
@@ -36,9 +37,18 @@
         }
       }
     },
+    computed: {
+      authors: {
+        get () { return this.$store.state.authors },
+        set (authors) { this.$store.commit('setAuthors', {authors}) }
+      }
+    },
     methods: {
+      ...mapActions([
+        'saveBook'
+      ]),
       submitNewBook: function () {
-        this.saveBook(this.book)
+        this.saveBook({book: this.book})
         this.book = {title: '', pages: null, author: {}}
         this.$refs.bookTitle.focus()
       }

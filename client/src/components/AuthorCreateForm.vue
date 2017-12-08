@@ -12,9 +12,10 @@
 </template>
 
 <script>
+  import {mapActions} from 'vuex'
+
   export default {
     name: 'author-create-form',
-    props: ['saveAuthor'],
     data () {
       return {
         author: {
@@ -23,8 +24,11 @@
       }
     },
     methods: {
+      ...mapActions([
+        'saveAuthor'
+      ]),
       submitNewAuthor: function () {
-        this.saveAuthor(this.author)
+        this.saveAuthor({author: this.author})
         this.author = {name: ''}
         this.$refs.authorName.focus()
       }
