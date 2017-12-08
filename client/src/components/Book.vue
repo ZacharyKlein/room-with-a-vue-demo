@@ -5,7 +5,7 @@
       <td class="title">{{book.title}}</td>
       <td class="pages">{{book.pages}}</td>
       <td class="author">{{book.author.name}}</td>
-      <td><button @click="deleteBook(book.id)">X</button></td>
+      <td><button @click="deleteBook({id: book.id})">X</button></td>
     </tr>
 </template>
 

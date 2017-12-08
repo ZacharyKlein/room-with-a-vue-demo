@@ -6,7 +6,7 @@
     <br/>
     <br/>
     <hr/>
-    <book-list :books="books" v-bind="{deleteBook}"></book-list>
+    <book-list></book-list>
 
     <br/>
     <hr/>
@@ -15,7 +15,7 @@
     <br/>
     <br/>
     <hr/>
-    <author-list :authors="authors" v-bind="{deleteAuthor}"></author-list>-
+    <author-list></author-list>-
 
     <br/>
 
@@ -27,55 +27,20 @@
   import AuthorList from './AuthorList'
   import BookCreateForm from './BookCreateForm'
   import AuthorCreateForm from './AuthorCreateForm'
-  import { mapActions, mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'Welcome',
     data () {
       return {
-        msg: 'Welcome to the Library',
-        serverURL: process.env.SERVER_URL
-      }
-    },
-    computed: {
-      books: {
-        get () { return this.$store.state.books },
-        set (books) { this.$store.commit('setBooks', {books}) }
-      },
-      authors: {
-        get () { return this.$store.state.authors },
-        set (authors) { this.$store.commit('setAuthors', {authors}) }
+        msg: 'Welcome to the Library'
       }
     },
     methods: {
       ...mapActions([
         'loadAuthors',
         'loadBooks'
-      ]),
-      ...mapMutations([
-        'addAuthor',
-        'removeBook',
-        'removeAuthor'
-      ]),
-      deleteBook: function (id) {
-        this.$resource(`${this.serverURL}/book/${id}`)
-          .delete()
-          .then(response => {
-            if (response.status === 204) {
-              this.removeBook({id})
-            }
-          })
-      },
-      deleteAuthor: function (id) {
-        this.$resource(`${this.serverURL}/author/${id}`)
-          .delete()
-          .then(response => {
-            if (response.status === 204) {
-              this.authors = this.authors.filter(b => b.id !== id)
-              this.books = this.books.filter(b => b.author.id !== id)
-            }
-          })
-      }
+      ])
     },
     created: function () {
       this.loadAuthors()

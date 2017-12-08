@@ -22,7 +22,8 @@ const store = new Vuex.Store({
       state.books = state.books.filter(b => b.id !== id)
     },
     removeAuthor (state, {id}) {
-      state.books = state.authors.filter(b => b.id !== id)
+      state.authors = state.authors.filter(b => b.id !== id)
+      state.books = state.books.filter(b => b.author.id !== id)
     },
     setBooks (state, {books}) {
       state.books = books
@@ -51,9 +52,9 @@ const store = new Vuex.Store({
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(book)
         })
-          .then(r => r.json())
-          .then(json => commit('addBook', {book: json}))
-          .catch(e => console.warn(e))
+        .then(r => r.json())
+        .then(json => commit('addBook', {book: json}))
+        .catch(e => console.warn(e))
     },
     saveAuthor: function ({commit, state}, {author}) {
       fetch(`${state.serverURL}/author`,
@@ -62,9 +63,29 @@ const store = new Vuex.Store({
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(author)
         })
-          .then(r => r.json())
-          .then(json => commit('addAuthor', {author: json}))
-          .catch(e => console.warn(e))
+        .then(r => r.json())
+        .then(json => commit('addAuthor', {author: json}))
+        .catch(e => console.warn(e))
+    },
+    deleteBook: function ({commit, state}, {id}) {
+      fetch(`${state.serverURL}/book/${id}`,
+        {
+          method: 'DELETE'
+        }).then(response => {
+          if (response.status === 204) {
+            commit('removeBook', {id})
+          }
+        })
+    },
+    deleteAuthor: function ({commit, state}, {id}) {
+      fetch(`${state.serverURL}/author/${id}`,
+        {
+          method: 'DELETE'
+        }).then(response => {
+          if (response.status === 204) {
+            commit('removeAuthor', {id})
+          }
+        })
     }
   }
 })

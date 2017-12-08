@@ -12,11 +12,22 @@
 </template>
 <script>
   import Author from './Author.vue'
+  import {mapActions} from 'vuex'
 
   export default {
     name: 'author-list',
-    props: ['authors', 'deleteAuthor'],
-    components: {Author}
+    components: {Author},
+    computed: {
+      authors: {
+        get () { return this.$store.state.authors },
+        set (authors) { this.$store.commit('setAuthors', {authors}) }
+      }
+    },
+    methods: {
+      ...mapActions([
+        'deleteAuthor'
+      ])
+    }
   }
 </script>
 

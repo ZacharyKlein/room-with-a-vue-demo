@@ -12,12 +12,23 @@
   </table>
 </template>
 <script>
+  import {mapActions} from 'vuex'
   import Book from './Book.vue'
 
   export default {
     name: 'book-list',
-    props: ['books', 'deleteBook'],
-    components: {Book}
+    components: {Book},
+    computed: {
+      books: {
+        get () { return this.$store.state.books },
+        set (books) { this.$store.commit('setBooks', {books}) }
+      }
+    },
+    methods: {
+      ...mapActions([
+        'deleteBook'
+      ])
+    }
   }
 </script>
 
