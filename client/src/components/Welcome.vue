@@ -2,31 +2,13 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <book-create-form></book-create-form>
-    <br/>
     <br/>
     <hr/>
-    <book-list></book-list>
-
-    <br/>
-    <hr/>
-
-    <author-create-form></author-create-form>
-    <br/>
-    <br/>
-    <hr/>
-    <author-list></author-list>-
-
-    <br/>
 
   </div>
 </template>
 
 <script>
-  import BookList from './BookList'
-  import AuthorList from './AuthorList'
-  import BookCreateForm from './BookCreateForm'
-  import AuthorCreateForm from './AuthorCreateForm'
   import { mapActions } from 'vuex'
 
   export default {
@@ -45,9 +27,6 @@
     created: function () {
       this.loadAuthors()
       this.loadBooks()
-    },
-    components: {
-      BookList, BookCreateForm, AuthorList, AuthorCreateForm
     }
   }
 </script>
