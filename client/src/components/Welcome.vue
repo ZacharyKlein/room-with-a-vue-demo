@@ -9,24 +9,12 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
-
   export default {
     name: 'Welcome',
     data () {
       return {
         msg: 'Welcome to the Library'
       }
-    },
-    methods: {
-      ...mapActions([
-        'loadAuthors',
-        'loadBooks'
-      ])
-    },
-    created: function () {
-      this.loadAuthors()
-      this.loadBooks()
     }
   }
 </script>
